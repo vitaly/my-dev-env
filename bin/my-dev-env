@@ -1,0 +1,16 @@
+#!/bin/bash
+
+D="$(dirname "$(readlink "${BASH_SOURCE[0]}")")"
+R="$(cd "$D/../"; pwd)"
+
+function mounts()
+{
+  cd "$R/mounts"
+  find . -type l |\
+    while read f; do
+      d=`readlink "$f"`
+      echo "-v $d:/$f"
+    done
+}
+
+docker run --rm -ti `mounts` -v /:/work -w /work/$PWD "$@" my-dev-env
