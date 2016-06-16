@@ -1,3 +1,4 @@
 
 make build                  build docker image
+make rebuild                build docker image ignoring the cache
 make install                install command line scropts
