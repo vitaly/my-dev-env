@@ -13,4 +13,4 @@ function mounts()
     done
 }
 
-docker run --rm -ti `mounts` -v /:/work -w /work/$PWD "$@" my-dev-env
+docker run --rm -ti `mounts` -v /:/work -w /work/$PWD my-dev-env "$@"

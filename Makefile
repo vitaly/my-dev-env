@@ -10,6 +10,6 @@ help:
 
 install:
 	mkdir -p ~/bin/
-	ln -sfn ${PWD}/bin/my-dev-env ~/bin/myd
+	ln -sfn ${PWD}/bin/my-dev-env ~/bin/my
 
 .PHONY: help build rebuild install
