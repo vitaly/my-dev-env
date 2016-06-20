@@ -16,4 +16,6 @@ RUN apt-get install -y --no-install-recommends nodejs postgresql-client
 RUN apt-get install -y --no-install-recommends zsh zsh-dev zsh-doc
 RUN apt-get install -y --no-install-recommends less file
 
+COPY copy/ /
+
 CMD /bin/zsh
