@@ -14,5 +14,6 @@ RUN apt-get install -y --no-install-recommends host net-tools netcat inetutils-p
 RUN apt-get install -y --no-install-recommends git tig tmux vim-nox-py2
 RUN apt-get install -y --no-install-recommends nodejs postgresql-client
 RUN apt-get install -y --no-install-recommends zsh zsh-dev zsh-doc
+RUN apt-get install -y --no-install-recommends less file
 
 CMD /bin/zsh
