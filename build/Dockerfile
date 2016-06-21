@@ -15,7 +15,11 @@ RUN apt-get install -y --no-install-recommends git tig tmux vim-nox-py2
 RUN apt-get install -y --no-install-recommends nodejs postgresql-client
 RUN apt-get install -y --no-install-recommends zsh zsh-dev zsh-doc
 RUN apt-get install -y --no-install-recommends less file
+RUN apt-get install -y --no-install-recommends cmake
+RUN apt-get install -y --no-install-recommends python python-dev
 
 COPY copy/ /
 
+ENV TERM=xterm-256color
 CMD /bin/zsh
+ENV LANG=C.UTF-8
