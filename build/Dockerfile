@@ -18,6 +18,8 @@ RUN apt-get install -y --no-install-recommends less file
 RUN apt-get install -y --no-install-recommends cmake
 RUN apt-get install -y --no-install-recommends python python-dev
 
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all
+
 COPY copy/ /
 
 ENV TERM=xterm-256color
