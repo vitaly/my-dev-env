@@ -5,12 +5,19 @@ R="$(cd "$D/../"; pwd)"
 
 function mounts()
 {
+  echo -e "-v\n/:/work"
+  echo -e "-w\n/work/$PWD"
   cd "$R/mounts"
   find . -type l |\
     while read f; do
-      d=`readlink "$f"`
-      echo "-v $d:/$f"
+      echo -e "-v\n$(readlink "$f"):/$f"
     done
 }
 
-(set -x; docker run --rm -ti `mounts` -v /:/work -w "/work/$PWD" my-dev-env "$@")
+# this properly handles mounts with spaces in both target and source
+MOUNTS=()
+while read m; do
+  MOUNTS+=("$m")
+done < <(mounts)
+
+(set -x; docker run --rm -ti "${MOUNTS[@]}" my-dev-env "$@")
