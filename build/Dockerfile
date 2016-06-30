@@ -18,10 +18,21 @@ RUN apt-get install -y --no-install-recommends less file
 RUN apt-get install -y --no-install-recommends cmake
 RUN apt-get install -y --no-install-recommends python python-dev
 
-RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install --all
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+
+#RUN git clone --depth 1 https://github.com/astrails/dotzsh ~/.zsh
+COPY dotzsh /root/.zsh
+RUN ln -sfn .zsh/zshrc /root/.zshrc
+
+RUN ~/.fzf/install --all # must be after ~/.zshrc setup
+
+#RUN git clone --depth 1 https://github.com/vitaly/dotfiles -b vitaly ~/dotfiles
+COPY dotfiles /root/dotfiles
+
+RUN cd ~/dotfiles && SYSTEM_GITCONFIG=/etc/gitconfig make install
+
 
 COPY copy/ /
 
-ENV TERM=xterm-256color
 CMD /bin/zsh
 ENV LANG=C.UTF-8

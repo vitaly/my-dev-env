@@ -1,2 +1,4 @@
 mounts
 build/copy
+build/dotfiles
+build/dotzsh
