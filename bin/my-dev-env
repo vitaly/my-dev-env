@@ -20,4 +20,4 @@ while read m; do
   MOUNTS+=("$m")
 done < <(mounts)
 
-(set -x; docker run --rm -ti "${MOUNTS[@]}" my-dev-env "$@")
+(set -x; docker run --privileged -h my --rm -ti "${MOUNTS[@]}" my-dev-env "$@")
