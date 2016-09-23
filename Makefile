@@ -1,6 +1,9 @@
 help:
 	@cat README
 
+pull:
+	docker pull ubuntu
+
 build-base:
 	docker build --rm -t my-base build/base
 
@@ -10,13 +13,12 @@ build-local:
 	cp -R /Users/vitaly/my/config/dotzsh build/local/dotzsh
 	docker build --rm -t my-dev-env build/local
 
-rebuild:
-	docker pull ubuntu
-	docker build --no-cache --rm -t my-dev-env build
+build: build-base build-local
 
+rebuild: pull build
 
 install:
 	mkdir -p ~/bin/
 	ln -sfn ${PWD}/bin/my-dev-env ~/bin/my
 
-.PHONY: help build-base build-local rebuild install
+.PHONY: help build build-base build-local rebuild install

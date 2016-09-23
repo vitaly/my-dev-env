@@ -15,3 +15,6 @@ COPY dotfiles /root/dotfiles
 RUN cd ~/dotfiles && SYSTEM_GITCONFIG=/etc/gitconfig make install
 
 COPY copy/ /
+
+RUN ln -sfn nodejs /usr/bin/node
+RUN npm install -g coffee-script webpack
