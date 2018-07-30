@@ -1,24 +1,30 @@
 help:
 	@cat README
+.PHONY: help
 
 pull:
 	docker pull ubuntu
+.PHONY: pull
 
-build-base:
-	docker build --rm -t my-base build/base
+base:
+	$(MAKE) -C build/base
+.PHONY: base
 
-build-local:
-	rm -rf build/local/dotfiles build/local/dotzsh
-	cp -R /Users/vitaly/my/config/dotfiles build/local/dotfiles
-	cp -R /Users/vitaly/my/config/dotzsh build/local/dotzsh
-	docker build --rm -t my-dev-env build/local
+devbox:
+	$(MAKE) -C build/devbox
+.PHONY: devbox
 
-build: build-base build-local
+build: base devbox
+.PHONY: build
 
 rebuild: pull build
+.PHONY: rebuild
 
-install:
-	mkdir -p ~/bin/
-	ln -sfn ${PWD}/bin/my-dev-env ~/bin/my
+~/bin/:
+	@mkdir -pv ~/bin/
 
-.PHONY: help build build-base build-local rebuild install
+~/bin/my: bin/my ~/bin/
+	@cp -v $< $@
+
+install: build ~/bin/my
+.PHONY: install
