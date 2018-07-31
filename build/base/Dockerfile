@@ -42,10 +42,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends python3-greenlet python3-msgpack python3-setuptools
 RUN pip3 install neovim
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends ruby ruby-dev
-RUN gem install neovim
+RUN ln -sfn /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends tzdata
 
-RUN apt-file update
+# RUN apt-file update
 
 CMD ["/bin/zsh"]
 WORKDIR /root
