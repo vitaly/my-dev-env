@@ -48,5 +48,6 @@ RUN gem install neovim
 RUN apt-file update
 
 CMD ["/bin/zsh"]
+WORKDIR /root
 
 # RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends

@@ -1,3 +1,6 @@
+default: install
+.PHONY: default
+
 help:
 	@cat README
 .PHONY: help
@@ -28,3 +31,6 @@ rebuild: pull build
 
 install: build ~/bin/my
 .PHONY: install
+
+push:
+	docker push vitaly/devbox
