@@ -22,4 +22,9 @@ RUN git clone --depth 1 --branch local https://github.com/vitaly/dotfiles.git /r
 # plugins install must run from within tmux, so we start a detached tmux session, then wait for it
 RUN cd /root/my/dotfiles/tmux && tmux new-session -s 'install' -c /root/my/dotfiles/tmux -d make && tmux wait install
 
+## ZSH ###################################################################################################################
+RUN git clone --depth=1 --branch local https://github.com/vitaly/oh-my-zsh.git /root/.zsh # 1c27cef4
+RUN ln -sfn  .zsh/zshrc /root/.zshrc
+RUN chsh root -s `which zsh`
+
 ##########################################################################################################################
