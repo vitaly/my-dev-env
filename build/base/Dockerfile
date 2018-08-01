@@ -8,6 +8,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -q -y upgrade
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends apt-utils
 
+RUN ln -sfn /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends tzdata
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends apt-file
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends build-essential make exuberant-ctags
@@ -20,8 +23,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends host net-tools netcat inetutils-ping lsof man psmisc tree
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends postgresql-client
-
-RUN apt-file update
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends ca-certificates
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends sudo
@@ -38,14 +39,25 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends neovim
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends python3 python3-dev python3-pip
+# python 2
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends python-pip
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends python-greenlet python-msgpack python-setuptools
+RUN pip2 install wheel neovim
+
+# pyuthon 3
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends python3 python3-pip
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends python3-greenlet python3-msgpack python3-setuptools
-RUN pip3 install neovim
+RUN pip3 install wheel neovim
 
-RUN ln -sfn /usr/share/zoneinfo/Europe/Berlin /etc/localtime
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends tzdata
+# ruby
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y --no-install-recommends ruby-dev
+RUN gem install neovim
 
-# RUN apt-file update
+# node
+RUN yarn global add neovim
+
+
+RUN apt-file update
 
 CMD ["/bin/zsh"]
 WORKDIR /root
